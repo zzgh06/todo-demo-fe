@@ -4,11 +4,12 @@ import api from "../utils/api";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
+import { useNavigate } from "react-router-dom";
 
 const TodoPage = ({user, setUser}) => {
   const [todoList, setTodoList] = useState([]);
   const [todoValue, setTodoValue] = useState("");
-
+  const navigate = useNavigate();
   const getTasks = async () => {
     const response = await api.get("/tasks");
     // console.log("task list", response.data.data)
@@ -61,6 +62,7 @@ const TodoPage = ({user, setUser}) => {
   const handleLogout = async () => {
     sessionStorage.removeItem("token")
     setUser(null)
+    navigate('/')
   }
   return (
     <Container>
@@ -69,7 +71,7 @@ const TodoPage = ({user, setUser}) => {
           <div className="login-state">
             {user ? (
               <>
-                {user.name}님 <span className="logout" onClick={handleLogout}>로그아웃</span>
+                {user.name}님 안녕하세요 <button className="logout" onClick={handleLogout}>로그아웃</button>
               </>
             ) : (
               ''
